@@ -39,7 +39,7 @@ Firn is a multi-agent financial analysis system where 4 specialist agents collec
 The audit doesn't ask "is this report good?" — it asks, for each specific claim: **"where exactly did this number come from, and does the source actually say that?"**
 
 <p align="center">
-  <img src="docs/images/audit-overview.png" alt="Audit Overview — from report claim to raw data source" width="90%"/>
+  <img src="docs/images/audit-overview.png" alt="Audit Overview — from report claim to raw data source" width="100%"/>
 </p>
 
 ### What makes this different
@@ -53,7 +53,7 @@ The audit agent collects evidence. A separate program (`verdict.py`) assigns tru
 The audit agent operates under three enforcement layers that reject fabricated evidence at the tool level:
 
 <p align="center">
-  <img src="docs/images/three-layer-enforcement.png" alt="Three-Layer Enforcement" width="85%"/>
+  <img src="docs/images/three-layer-enforcement.png" alt="Three-Layer Enforcement" width="100%"/>
 </p>
 
 | Layer | What it checks | How |
@@ -84,7 +84,7 @@ This is not metadata — it's grep-verified evidence at every link.
 The audit runs in three phases. Each phase has a clear purpose, constrained scope, and machine-verified outputs.
 
 <p align="center">
-  <img src="docs/images/audit-pipeline.png" alt="Three-Phase Audit Pipeline" width="95%"/>
+  <img src="docs/images/audit-pipeline.png" alt="Three-Phase Audit Pipeline" width="100%"/>
 </p>
 
 ### Phase 1 — Specialist Fidelity: "Did each specialist faithfully report its data?"
@@ -190,7 +190,7 @@ else:
 ### Six Trust Levels
 
 <p align="center">
-  <img src="docs/images/trust-levels.png" alt="Six Trust Levels" width="80%"/>
+  <img src="docs/images/trust-levels.png" alt="Six Trust Levels" width="100%"/>
 </p>
 
 | Verdict | Meaning | Trust | Example |
@@ -256,7 +256,7 @@ This separation ensures Phase 2a and 2b provide **independent evidence paths** �
 ## System Architecture
 
 <p align="center">
-  <img src="docs/images/system-architecture.png" alt="Firn System Architecture" width="95%"/>
+  <img src="docs/images/system-architecture.png" alt="Firn System Architecture" width="100%"/>
 </p>
 
 ### Analysis Pipeline
@@ -295,7 +295,7 @@ User: "Analyze AAPL"
 Firn maintains a persistent, auditable knowledge base — every belief update is sourced, versioned, and reviewable.
 
 <p align="center">
-  <img src="docs/images/versioned-research-memory.png" alt="Versioned Research Memory — sourced, versioned, reviewable" width="90%"/>
+  <img src="docs/images/versioned-research-memory.png" alt="Versioned Research Memory — sourced, versioned, reviewable" width="100%"/>
 </p>
 
 New information is read, compressed into themes, and recorded as auditable revisions to the agent's long-term structured memory. The knowledge base maintains separate sections for the agent's own views, user-provided views, and points of divergence between the two — a structural defense against LLM sycophancy that keeps analysis grounded in accumulated evidence rather than user expectations.
@@ -346,17 +346,17 @@ The included `web-ui/` is a fully functional Next.js interface that connects to 
 An editorial-grade redesign is in active development — glacier-inspired visual language with light backgrounds, serif headlines, and generous whitespace. Designed as a reading experience rather than a dashboard.
 
 <p align="center">
-  <img src="docs/images/ui-preview-surface.png" alt="Surface — Homepage hero with glacier photography" width="80%"/>
+  <img src="docs/images/ui-preview-surface.png" alt="Surface — Homepage hero with glacier photography" width="100%"/>
   <br/><em>Homepage — glacier photography, editorial typography, analysis input</em>
 </p>
 
 <p align="center">
-  <img src="docs/images/ui-preview-report.png" alt="Report — Audited research note with inline citations" width="80%"/>
+  <img src="docs/images/ui-preview-report.png" alt="Report — Audited research note with inline citations" width="100%"/>
   <br/><em>Audited research note — inline citation markers linked to evidence chain</em>
 </p>
 
 <p align="center">
-  <img src="docs/images/ui-preview-archive.png" alt="Archive — Sealed evidence vault" width="80%"/>
+  <img src="docs/images/ui-preview-archive.png" alt="Archive — Sealed evidence vault" width="100%"/>
   <br/><em>Archive — sealed core samples with claim counts, verification stats, and immutable records</em>
 </p>
 
