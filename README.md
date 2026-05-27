@@ -177,20 +177,25 @@ After Phase 2a and 2b complete, `verdict.py` merges their outputs using program 
 
 ```python
 # Simplified verdict logic — no LLM, no temperature, no sampling
-if has_source_data and has_specialist_chain and r1_fidelity == "found":
-    verdict = "verified"          # Full chain: report → specialist → tool → raw data
-elif has_source_data:
-    verdict = "supported"         # Raw data confirms, but specialist chain incomplete
-elif source_type == "kb":
-    verdict = "kb-sourced"        # Traced to knowledge base
-elif source_type == "computation":
-    verdict = "computed"           # Deterministic calculation (e.g., reverse DCF)
+
+# 1. Special source types take priority
+if source_type == "kb":
+    verdict = "kb-sourced"            # Traced to knowledge base
 elif source_type == "web":
-    verdict = "web-sourced"       # Traced to web search
-elif has_specialist_only:
-    verdict = "specialist-judgment" # Specialist claimed it, but no raw data backup
+    verdict = "web-sourced"           # Traced to web search
+elif source_type in ("computation", "derived"):
+    verdict = "computed"              # Deterministic calculation (e.g., reverse DCF)
+
+# 2. Combined evidence rules
+elif has_specialist and r1_fidelity == "found":
+    verdict = "verified"              # R2a + R1: report → specialist → raw data
+elif has_source or has_specialist:
+    if has_specialist and not has_source and r1_fidelity != "found":
+        verdict = "specialist-judgment"  # Specialist claimed it, weak data backing
+    else:
+        verdict = "supported"         # Partial evidence chain present
 else:
-    verdict = "unverified"        # No evidence found anywhere
+    verdict = "unverified"            # No evidence found anywhere
 ```
 
 ### Six Trust Levels
@@ -201,8 +206,8 @@ else:
 
 | Verdict | Meaning | Trust | Example |
 |---------|---------|-------|---------|
-| **Verified** | Full chain: report → specialist → raw data, all confirmed | Highest | "P/E of 18.9x" — found in specialist output AND raw API response |
-| **Supported** | Raw data confirms, specialist chain incomplete | High | "Revenue $5.1B" — in raw data, specialist didn't explicitly state |
+| **Verified** | Full chain via R2a + R1: report → specialist → raw data | Highest | "P/E of 18.9x" — specialist stated it, R1 confirmed it traces to raw API data |
+| **Supported** | Partial evidence chain — raw data or specialist trace present | High | "Revenue $5.1B" — found in raw data (R2b), but specialist chain incomplete |
 | **KB-Sourced** | Traced to knowledge base entry | High | "Uranium supply squeeze" — from KB themes/uranium-supply |
 | **Computed** | Result of deterministic calculation | Medium-High | "Implied growth 9.2%" — from reverse DCF sidecar |
 | **Web-Sourced** | Traced to web search result | Medium | "CEO appointed May 2026" — from web_search result |
