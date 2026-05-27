@@ -75,7 +75,7 @@ Report: "trailing P/E of 18.9x"
             └─ Raw API response: { "trailingPE": 18.923 }
 ```
 
-This is not metadata — it's grep-verified evidence at every link.
+This is not metadata — it's grep-verified evidence at every link. The chain terminates at raw API responses (yfinance, FRED, SEC filings) — that is the trust boundary. Firn verifies that the report faithfully represents what the data sources actually returned, not whether the data sources themselves are correct. Every layer above the raw data is auditable; the raw data is the ground truth.
 
 **4. Purpose-built search for financial data**
 
