@@ -214,6 +214,44 @@ else:
 | **Specialist Judgment** | Only specialist stated it, no raw data | Medium | "Fair value ~$150" — specialist's DCF estimate |
 | **Unverified** | No evidence found in any source | None | Claim exists in report but cannot be traced |
 
+### What you actually get
+
+The verdict label is a summary — the real output is a **structured citation per claim** containing the complete evidence package. Here is an actual citation from a GOOG analysis:
+
+```json
+{
+  "id": 7,
+  "claim": "Trailing P/E of 18.9x",
+  "claim_in_report": "trailing P/E of 18.9x",
+  "verdict": "verified",
+  "source": {
+    "agent": "fundamental",
+    "tool": "get_stock_info",
+    "index": 1,
+    "raw_value": "18.923"
+  },
+  "specialist": {
+    "agent": "fundamental",
+    "excerpt": "P/E Ratio: 18.9x (trailing)"
+  },
+  "evidence": {
+    "source_grep": "tools/fundamental_tool_calls.json:42: \"trailingPE\": 18.923  [@ tool_call #1: get_stock_info]",
+    "specialist_grep": "trace/specialist_outputs/fundamental_output.md:15: P/E Ratio: 18.9x (trailing)"
+  },
+  "r1_match": {
+    "agent": "fundamental",
+    "claim_id": 3,
+    "verdict": "found",
+    "source_tool": "get_stock_info",
+    "source_index": 1
+  }
+}
+```
+
+Every claim gets this treatment — not just a color label, but the exact specialist quote, the exact raw API value, the grep coordinates where evidence was found, and the R1 cross-reference confirming the specialist faithfully reported its data. A compliance officer can trace any number in the report back to the API response that produced it.
+
+The web UI overlays these citations directly on the report text — click any highlighted claim to inspect its full evidence chain.
+
 ---
 
 ## What the Audit Agent Sees
