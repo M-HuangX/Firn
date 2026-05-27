@@ -218,6 +218,11 @@ else:
 
 The verdict label is a summary — the real output is a **structured citation per claim** containing the complete evidence package.
 
+<p align="center">
+  <img src="docs/images/citation-ui.png" alt="Citation UI — report text with evidence trace panel" width="100%"/>
+  <br/><em>Audited report with evidence trace — every claim linked to its source data</em>
+</p>
+
 In the web UI, citations appear as inline highlights on the report text. Hover any highlighted number to see its full evidence chain:
 
 ```
