@@ -216,7 +216,32 @@ else:
 
 ### What you actually get
 
-The verdict label is a summary — the real output is a **structured citation per claim** containing the complete evidence package. Here is an actual citation from a GOOG analysis:
+The verdict label is a summary — the real output is a **structured citation per claim** containing the complete evidence package.
+
+In the web UI, citations appear as inline highlights on the report text. Hover any highlighted number to see its full evidence chain:
+
+```
+  Report text (with audit overlay active):
+
+  "...Alphabet trades at a trailing P/E of 18.9x⁷, near its
+  5-year median of 24.2x⁸. Free cash flow reached $62.25⁹..."
+                                            ─────
+                                              ↓ hover
+                                ┌─────────────────────────┐
+                                │ ✓ Verified               │
+                                │                          │
+                                │ "trailing P/E of 18.9x"  │
+                                │                          │
+                                │ Source: get_stock_info    │
+                                │ = 18.923                 │
+                                │                          │
+                                │ Specialist (fundamental): │
+                                │ "P/E Ratio: 18.9x        │
+                                │  (trailing)"             │
+                                └─────────────────────────┘
+```
+
+Each highlighted number links to a structured citation. Here is the underlying data for citation ⁷ above:
 
 ```json
 {
@@ -249,8 +274,6 @@ The verdict label is a summary — the real output is a **structured citation pe
 ```
 
 Every claim gets this treatment — not just a color label, but the exact specialist quote, the exact raw API value, the grep coordinates where evidence was found, and the R1 cross-reference confirming the specialist faithfully reported its data. A compliance officer can trace any number in the report back to the API response that produced it.
-
-The web UI overlays these citations directly on the report text — click any highlighted claim to inspect its full evidence chain.
 
 ---
 
