@@ -1,0 +1,200 @@
+# Source Trust Registry
+# Defines trust levels, biases, and handling rules for each information source.
+# Tier 1 = unconditional trust, Tier 5 = respect but verify independently.
+#
+# Dual trust tier (D25):
+#   human_tier: set by human, reflects structural trust level
+#   agent_tier: set by agent based on experience (null = defer to human_tier)
+#   effective_tier = agent_tier if not null, else human_tier
+
+sources:
+  # --- Tier 1: Objective Facts ---
+  macro_pulse:
+    human_tier: 1
+    agent_tier: null
+    agent_assessment: ""
+    trust: unconditional
+    bias: none
+    description: "System-generated daily macro snapshot (S&P, NASDAQ, VIX, yields, indicators)"
+    handling: "Direct absorption -- auto-generated from authoritative sources"
+    prompt_description: >
+      macro_pulse — Auto-generated daily macro snapshot from FRED API and
+      yfinance. Contains: US treasury yields, S&P/NASDAQ levels, VIX, CPI,
+      unemployment, GDP, market regime classification. Machine-generated,
+      always reliable.
+
+  sec_filings:
+    human_tier: 1
+    agent_tier: null
+    agent_assessment: ""
+    trust: unconditional
+    bias: none
+    description: "SEC 10-K, 10-Q, 8-K filings"
+    handling: "Direct absorption into objective_mind"
+
+  fred_api:
+    human_tier: 1
+    agent_tier: null
+    agent_assessment: ""
+    trust: unconditional
+    bias: none
+    description: "Federal Reserve Economic Data"
+    handling: "Direct absorption into objective_mind"
+
+  market_prices:
+    human_tier: 1
+    agent_tier: null
+    agent_assessment: ""
+    trust: unconditional
+    bias: none
+    description: "Real-time and historical stock prices, volumes"
+    handling: "Direct absorption into objective_mind"
+
+  insider_transactions:
+    human_tier: 1
+    agent_tier: null
+    agent_assessment: ""
+    trust: unconditional
+    bias: none
+    description: "SEC Form 4 insider trading filings"
+    handling: "Direct absorption into objective_mind"
+
+  watchlist_monitor:
+    human_tier: 2
+    agent_tier: null
+    agent_assessment: ""
+    trust: high
+    bias: none
+    description: "System-generated event alerts from SEC filings, analyst actions, earnings calendar"
+    handling: "Direct absorption -- sourced from regulatory filings and analyst databases"
+
+  # --- Tier 2: Professional Analysis ---
+  reuters_bloomberg:
+    human_tier: 2
+    agent_tier: null
+    agent_assessment: ""
+    trust: high
+    bias: institutional
+    description: "Wire services and financial terminals"
+    handling: "Absorb with source attribution. Note institutional framing"
+
+  analyst_ratings:
+    human_tier: 2
+    agent_tier: null
+    agent_assessment: ""
+    trust: moderate_high
+    bias: sell_side
+    description: "Wall Street analyst ratings, price targets, upgrades/dowgrades"
+    incentive: "Generate trading volume, maintain issuer relationships"
+    handling: "Useful for consensus view. Apply contrarian awareness"
+
+  earnings_calls:
+    human_tier: 2
+    agent_tier: null
+    agent_assessment: ""
+    trust: high
+    bias: management_optimism
+    description: "Company earnings call transcripts"
+    handling: "Absorb facts. Flag forward-looking statements as management guidance"
+
+  # --- Tier 2: User-Configured Content Sources ---
+  # WeChat and Bilibili accounts are configured in separate YAML files.
+  # See wechat_accounts.yaml.example and bilibili_accounts.yaml.example.
+  # Each registered account creates a source key (e.g., wechat_{name}, bilibili_{name})
+  # and inherits the tier/handling rules defined here.
+  wechat:
+    human_tier: 2
+    agent_tier: null
+    agent_assessment: ""
+    trust: moderate_high
+    bias: varies
+    description: "WeChat Official Account articles — user-curated financial analysts and researchers"
+    handling: "Professional analysis. Extract trading views, macro reads. Cross-reference data claims against Tier 1"
+
+  bilibili:
+    human_tier: 2
+    agent_tier: null
+    agent_assessment: ''
+    trust: moderate_high
+    bias: practitioner
+    description: 'Bilibili financial content creators — video subtitles and dynamics'
+    handling: >
+      Video/text content from user-curated financial creators.
+      Extract trading views, market analysis, and factual claims.
+      Cross-reference data claims against Tier 1 sources.
+      NOTE: Public videos may contain brief ad segments in AI-generated subtitles — ignore these.
+
+  # --- Tier 3: Mixed Sources ---
+  financial_news:
+    human_tier: 3
+    agent_tier: null
+    agent_assessment: ""
+    trust: moderate
+    bias: engagement_driven
+    description: "CNBC, MarketWatch, Yahoo Finance articles"
+    handling: "Extract factual claims only. Discard editorial framing"
+
+  seeking_alpha:
+    human_tier: 3
+    agent_tier: null
+    agent_assessment: ""
+    trust: moderate
+    bias: retail_analytical
+    description: "Seeking Alpha articles and analysis"
+    handling: "Extract data and unique insights. Verify claims against Tier 1-2"
+
+  market_news_yfinance:
+    human_tier: 3
+    agent_tier: null
+    agent_assessment: ""
+    trust: moderate
+    bias: aggregated
+    description: "Yahoo Finance market news headlines (via yfinance)"
+    handling: "Extract facts only. Multiple publishers, check original source tier."
+
+  stock_news_yfinance:
+    human_tier: 3
+    agent_tier: null
+    agent_assessment: ""
+    trust: moderate
+    bias: aggregated
+    description: "Yahoo Finance stock-specific news (via yfinance)"
+    handling: "Extract facts, note publisher. Cross-reference with Tier 1-2 data."
+
+  # --- Tier 4: Social / Subjective ---
+  social_media:
+    human_tier: 4
+    agent_tier: null
+    agent_assessment: ""
+    trust: low
+    bias: varies
+    description: "Twitter/X, Reddit, StockTwits"
+    handling: "Never enters objective_mind. Useful as retail sentiment indicator (contrarian)"
+
+  user_forwarded:
+    human_tier: 4
+    agent_tier: null
+    agent_assessment: ""
+    trust: low_to_moderate
+    bias: varies
+    description: "Content forwarded by the user from external sources"
+    handling: |
+      1. Assess original source credibility
+      2. Separate factual claims from opinions
+      3. Cross-check facts against Tier 1-2 sources
+      4. Record in user_context/forwarded/ with agent assessment
+      5. If genuinely new verifiable fact -> verify then consider for objective_mind
+
+  # --- Tier 5: User Intuition ---
+  user_opinion:
+    human_tier: 5
+    agent_tier: null
+    agent_assessment: ""
+    trust: contextual
+    bias: personal
+    description: "User's personal judgment, feelings, predictions"
+    handling: |
+      Record in user_context/user_views.md
+      NEVER modify objective_mind based solely on user opinion
+      Track divergences when agent disagrees
+      Respect the user's knowledge but maintain independent analysis

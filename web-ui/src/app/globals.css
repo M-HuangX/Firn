@@ -1,0 +1,278 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #0B1120;
+  --color-surface: #131B2E;
+  --color-border: #1E2D42;
+  --color-text-primary: #E2EBF5;
+  --color-text-secondary: #7B8FA8;
+  --color-accent: #00D4AA;
+  --color-interactive: #5BA3F5;
+  --color-positive: #3FB950;
+  --color-negative: #F85149;
+  --color-data-flow: #5B9CF0;
+  --color-tool-call: #E8A330;
+  --color-kb-write: #3FB950;
+  --color-kb-read: #06B6D4;
+  --color-web-search: #EABC3D;
+  --color-treasure-glow: #00D4AA;
+  --color-core-mind: #8B5CF6;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes kbFlash {
+  0% {
+    opacity: 0;
+    box-shadow: 0 0 0 0 rgba(0, 212, 170, 0.4);
+  }
+  30% {
+    opacity: 1;
+    box-shadow: 0 0 8px 2px rgba(0, 212, 170, 0.3);
+  }
+  100% {
+    opacity: 1;
+    box-shadow: none;
+  }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(2px, -1.5px) scale(1.015); }
+  66% { transform: translate(-1px, 2px) scale(0.985); }
+}
+
+@keyframes kbOrbPulseRead {
+  0%, 100% { box-shadow: 0 0 8px rgba(6, 182, 212, 0.2), 0 0 20px rgba(6, 182, 212, 0.1); }
+  50% { box-shadow: 0 0 16px rgba(6, 182, 212, 0.5), 0 0 36px rgba(6, 182, 212, 0.25); }
+}
+
+@keyframes kbOrbPulseWrite {
+  0%, 100% { box-shadow: 0 0 8px rgba(63, 185, 80, 0.2), 0 0 20px rgba(63, 185, 80, 0.1); }
+  50% { box-shadow: 0 0 16px rgba(63, 185, 80, 0.5), 0 0 36px rgba(63, 185, 80, 0.25); }
+}
+
+@keyframes kbStarPulse {
+  0%, 100% { transform: translate(var(--float-x, 0px), var(--float-y, 0px)) scale(1); opacity: var(--star-opacity); }
+  50% { transform: translate(var(--float-x, 0px), var(--float-y, 0px)) scale(1.6); opacity: 1; }
+}
+
+@keyframes kbStarFloat {
+  0%, 100% { transform: translate(0px, 0px); }
+  20% { transform: translate(var(--drift-x1), var(--drift-y1)); }
+  45% { transform: translate(var(--drift-x2), var(--drift-y2)); }
+  70% { transform: translate(var(--drift-x3), var(--drift-y3)); }
+  90% { transform: translate(var(--drift-x4), var(--drift-y4)); }
+}
+
+/* Audit v2: gradient scan sweep (top→bottom, loops) on specialist nodes */
+@keyframes auditScan {
+  0% { background-position: 0% -100%; }
+  100% { background-position: 0% 200%; }
+}
+
+/* Audit v2: purple border pulse for tool-call rows being verified */
+@keyframes auditRowPulse {
+  0%, 100% { border-left-color: rgba(139, 92, 246, 0.3); }
+  50% { border-left-color: rgba(139, 92, 246, 0.9); }
+}
+
+
+@keyframes treasureGlow {
+  0%, 100% { box-shadow: 0 0 10px rgba(0, 212, 170, 0.3), 0 0 30px rgba(0, 212, 170, 0.15); }
+  50% { box-shadow: 0 0 20px rgba(0, 212, 170, 0.5), 0 0 50px rgba(0, 212, 170, 0.25); }
+}
+
+@keyframes strataAppear {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes drawEdge {
+  from { stroke-dashoffset: 500; }
+  to { stroke-dashoffset: 0; }
+}
+
+.edge-drawing path {
+  stroke-dasharray: 500;
+  stroke-dashoffset: 500;
+  animation: drawEdge 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.edge-visible path {
+  stroke-dasharray: none;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-kbFlash {
+  animation: kbFlash 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes snowfall {
+  from { transform: translateY(-10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.animate-snowfall {
+  animation: snowfall 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes strataFlash {
+  0% { background-color: rgba(var(--flash-color), 0.3); }
+  100% { background-color: transparent; }
+}
+
+@keyframes orbPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+.animate-breathe {
+  animation: breathe var(--breathe-duration, 8s) ease-in-out infinite;
+  animation-delay: var(--breathe-delay, 0s);
+}
+
+.animate-treasureGlow {
+  animation: treasureGlow 3s ease-in-out infinite;
+}
+
+.audit-scanning {
+  background-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(139, 92, 246, 0.08) 45%,
+    rgba(139, 92, 246, 0.15) 50%,
+    rgba(139, 92, 246, 0.08) 55%,
+    transparent 100%
+  );
+  background-size: 100% 300%;
+  animation: auditScan 4s linear infinite;
+}
+
+.audit-scanning-indigo {
+  background-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(99, 102, 241, 0.08) 45%,
+    rgba(99, 102, 241, 0.15) 50%,
+    rgba(99, 102, 241, 0.08) 55%,
+    transparent 100%
+  );
+  background-size: 100% 300%;
+  animation: auditScan 4s linear infinite;
+}
+
+.audit-scanning-cyan {
+  background-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(34, 211, 238, 0.08) 45%,
+    rgba(34, 211, 238, 0.15) 50%,
+    rgba(34, 211, 238, 0.08) 55%,
+    transparent 100%
+  );
+  background-size: 100% 300%;
+  animation: auditScan 4s linear infinite;
+}
+
+/* KB Maturation tiers (Phase F: Ice Core Navigator) */
+.firn-snow {
+  background: linear-gradient(180deg, rgba(224,242,254,0.08), rgba(186,230,253,0.04));
+  border-left: 2px solid rgba(224,242,254,0.3);
+}
+
+.firn-firn {
+  background: linear-gradient(180deg, rgba(6,182,212,0.12), rgba(59,130,246,0.08));
+  border-left: 2px solid rgba(6,182,212,0.5);
+}
+
+.firn-ice {
+  background: linear-gradient(180deg, rgba(99,102,241,0.15), rgba(139,92,246,0.1));
+  border-left: 2px solid rgba(139,92,246,0.7);
+  animation: iceShimmer 8s ease-in-out infinite;
+}
+
+@keyframes iceShimmer {
+  0%, 100% { border-left-color: rgba(139,92,246,0.7); box-shadow: 0 0 0 rgba(139,92,246,0); }
+  50% { border-left-color: rgba(99,102,241,0.9); box-shadow: 0 0 8px rgba(139,92,246,0.15); }
+}
+
+/* Custom scrollbar — thin, dark, unobtrusive */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Hide scrollbar completely (for panels that auto-scroll) */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}

@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
+.venv/
+
+# Pytest
+.pytest_cache/
+
+# Firn cognitive state (user-specific, contains personal investment analysis)
+firn/notebook/themes/
+firn/notebook/events/
+firn/notebook/sectors/
+firn/notebook/stocks/
+firn/user_context/
+firn/archive/
+firn/library/
+
+# Data — persistent stores and metadata
+data/meta/last_updated.json
+data/meta/update_log.md
+data/meta/pipeline_events.jsonl
+data/meta/digest_sessions.md
+data/meta/kb_backup_*/
+data/meta/notebook_backup_*/
+data/sources/fred_cache/
+data/sources/market_snapshots/
+
+# Source local stores (large cached API data)
+data/sources/*_bilibili.json

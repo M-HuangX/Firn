@@ -1,0 +1,44 @@
+# Benchmark tickers for market snapshot in digest sessions.
+# These provide price context to the digest agent — they are NOT analysis targets.
+# Edit freely: add/remove tickers as your investment scope changes.
+
+categories:
+  us_indices:
+    label: "US Indices"
+    tickers:
+      - SPY      # S&P 500
+      - QQQ      # Nasdaq 100
+      - IWM      # Russell 2000
+
+  magnificent_7:
+    label: "Magnificent 7"
+    tickers:
+      - AAPL
+      - MSFT
+      - NVDA
+      - GOOGL
+      - AMZN
+      - META
+      - TSLA
+
+  commodities:
+    label: "Commodities"
+    tickers:
+      - GLD      # Gold
+      - SLV      # Silver
+      - COPX     # Copper Miners
+      - USO      # Oil
+      - URNM     # Uranium Miners
+
+  agriculture:
+    label: "Agriculture"
+    tickers:
+      - WEAT     # Wheat
+      - CORN     # Corn
+      - CANE     # Sugar
+
+  semiconductors:
+    label: "Semiconductors"
+    tickers:
+      - SOXX     # Semis ETF
+      - 005930.KS  # Samsung Electronics

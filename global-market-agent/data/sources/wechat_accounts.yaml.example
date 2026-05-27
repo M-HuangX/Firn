@@ -1,0 +1,19 @@
+# WeChat Official Account configuration for digest pipeline.
+# Copy this file to wechat_accounts.yaml and add your own accounts.
+#
+# Fields:
+#   name: Account display name (used as source key: wechat_{name})
+#   human_tier: Trust level (1-5, see source_registry.yaml)
+#   tags: Content categorization tags
+#   description: Brief description of the account's focus
+
+accounts:
+- name: ExampleMacroAnalyst
+  human_tier: 2
+  agent_tier: null
+  agent_assessment: ''
+  description: 'Example: macro research and commodity analysis'
+  tags:
+  - macro
+  - commodities
+  - example

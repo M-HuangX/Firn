@@ -1,0 +1,23 @@
+# Bilibili content creator accounts for digest pipeline.
+# Copy this file to bilibili_accounts.yaml and add your own accounts.
+#
+# Fields:
+#   uid: Bilibili user ID (from profile URL)
+#   name: Display name (used as source key: bilibili_{name})
+#   human_tier: Trust level (1-5)
+#   fetch_subtitles: Extract AI-generated video subtitles
+#   fetch_dynamics: Extract text dynamics (posts)
+
+accounts:
+- uid: 123456789
+  name: ExampleTrader
+  human_tier: 2
+  agent_tier: null
+  agent_assessment: ''
+  description: 'Example: macro and technical analysis content creator'
+  tags:
+  - macro
+  - technical
+  - example
+  fetch_subtitles: true
+  fetch_dynamics: true

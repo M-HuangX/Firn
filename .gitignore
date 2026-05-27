@@ -1,0 +1,56 @@
+# Environment variables (API keys, secrets)
+.env
+.env.local
+.env.*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+.uv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+.next/
+
+# Firn runtime data (generated, not committed)
+global-market-agent/firn/notebook/themes/*
+global-market-agent/firn/notebook/events/*
+global-market-agent/firn/notebook/sectors/*
+global-market-agent/firn/notebook/stocks/*
+global-market-agent/firn/notebook/core_mind_history/*
+global-market-agent/firn/library/unread/*
+global-market-agent/firn/library/read/*
+global-market-agent/firn/user_context/*
+global-market-agent/firn/archive/*
+!**/.gitkeep
+
+# Data stores (populated at runtime)
+global-market-agent/data/sources/*.json
+global-market-agent/data/sources/fred_cache/
+global-market-agent/data/sources/market_snapshots/
+global-market-agent/data/meta/
+
+# Source account configs (personal — use .example files as templates)
+global-market-agent/data/sources/wechat_accounts.yaml
+global-market-agent/data/sources/bilibili_accounts.yaml
+
+# Execution logs (generated per analysis/digest run)
+global-market-agent/logs/
+global-market-agent/reports/
+
+# Claude Code configuration
+.claude/
