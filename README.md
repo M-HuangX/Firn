@@ -77,6 +77,12 @@ Report: "trailing P/E of 18.9x"
 
 This is not metadata — it's grep-verified evidence at every link.
 
+**4. Purpose-built search for financial data**
+
+The audit agent searches evidence using `grep_trace` — a ripgrep-powered search tool inspired by Claude Code's grep implementation. Financial data appears in wildly different formats across the evidence chain: a report says "$5.1B", the specialist wrote "revenue $5.1B (+26.2% YoY)", and the raw API returned `{"totalRevenue": 5098000000}`. The tool supports full regex with OR alternatives (`"5.1|5098|5100"`) so the agent can bridge these format gaps in a single query.
+
+Each grep result is automatically annotated with the originating tool call (`[@ tool_call #3: get_income_statement]`), giving the agent immediate provenance without manual cross-referencing. And every grep call is recorded — when the agent attempts to submit evidence, the system verifies it against actual grep history, closing the loop on fabrication.
+
 ---
 
 ## The Audit Pipeline
