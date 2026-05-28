@@ -22,13 +22,13 @@
 
 ## The Problem
 
-AI agents are increasingly used to generate reports, dashboards, and recommendations that humans act on. But every LLM output carries a fundamental risk: **hallucination**. A financial report that states "revenue grew 26% YoY" sounds authoritative — but did the model compute that from real data, or confabulate it?
+AI agents are increasingly used to generate financial reports that humans act on. But every LLM output carries a fundamental risk: **hallucination**. A report that states "revenue grew 26% YoY" sounds authoritative — but did the model compute that from real data, or confabulate it?
 
-Most systems treat this as a prompting problem. Firn treats it as an **engineering problem**.
+You can't assign a human to audit every AI output — it's too expensive and defeats the purpose of automation. So most systems let the AI cite its own sources: tools like Deep Research, Gemini, and ChatGPT generate a report and attach their own citations in the same pass. The problem: the same model that might hallucinate the content is also providing the citations. When it says "Source: get_income_statement → $5.1B", you're trusting the model's claim about what it retrieved — not a verified record of what it actually retrieved.
 
-The deeper challenge: if you use an AI agent to audit another AI agent's output, **who audits the auditor?** The audit agent can hallucinate evidence just as easily. Saying "I checked and it's correct" means nothing if the checking itself is unverifiable.
+A better approach: use an **independent audit agent** to verify the report after the fact. But this just moves the problem — the audit agent is itself an LLM, and it can fabricate evidence just as easily. Saying "I checked and it's correct" means nothing if the checking itself is unverifiable.
 
-Firn solves this with a **three-layer enforcement architecture** where the audit agent is _programmatically constrained_ — every piece of evidence it attempts to record is machine-verified against the actual source data before being accepted. The agent cannot simply assert "I checked" — the system demands proof, and rejects anything it cannot independently confirm.
+Firn solves this with **programmatic enforcement**: the audit agent searches for evidence, but every piece of evidence it attempts to record is **machine-verified against its actual search history** before being accepted. The agent cannot assert "I found this" — the system checks whether it actually searched for it, whether it quoted the report verbatim (not a paraphrase), and whether the specialist actually wrote what the agent claims. Every acceptance and rejection is logged — a compliance officer can review not just what passed, but what failed and why.
 
 ---
 
