@@ -34,9 +34,9 @@ Firn solves this with a **three-layer enforcement architecture** where the audit
 
 ## How Firn Audits
 
-Firn is a multi-agent financial analysis system where 4 specialist agents collect market data in parallel, a core agent synthesizes a comprehensive equity research report, and then an **independent audit pipeline** verifies every factual claim in that report.
-
 The audit doesn't ask "is this report good?" — it asks, for each specific claim: **"where exactly did this number come from, and does the source actually say that?"**
+
+An LLM audit agent searches for evidence. But the agent is **programmatically constrained** — it cannot record any evidence without the system independently verifying that evidence is real. The LLM finds; code verifies; deterministic logic judges.
 
 <p align="center">
   <img src="docs/images/audit-overview.png" alt="Audit Overview — from report claim to raw data source" width="100%"/>
@@ -44,13 +44,9 @@ The audit doesn't ask "is this report good?" — it asks, for each specific clai
 
 ### What makes this different
 
-**1. Deterministic verdicts, not LLM opinions**
+**1. The auditor is itself audited — by code**
 
-The audit agent collects evidence. A separate program (`verdict.py`) assigns trust levels using deterministic rule-based logic — no LLM involved in the verdict decision. This means the verdict layer itself cannot hallucinate: given the same collected evidence, the same verdicts are produced every time. The LLM's role is strictly limited to _finding_ evidence; _judging_ it is done by code.
-
-**2. The auditor is itself audited — by code**
-
-The audit agent operates under three enforcement layers that reject fabricated evidence at the tool level:
+This is the core idea. An audit agent that can freely assert "I checked and it's correct" is no better than the agent it audits — it can hallucinate evidence just as easily. Firn solves this by constraining the audit agent at the tool level: every piece of evidence must pass three programmatic verification layers before being accepted.
 
 <p align="center">
   <img src="docs/images/three-layer-enforcement.png" alt="Three-Layer Enforcement" width="100%"/>
@@ -64,7 +60,7 @@ The audit agent operates under three enforcement layers that reject fabricated e
 
 All rejections are logged to `enforcement_log.jsonl` — a compliance officer can inspect not just what was accepted, but what was _rejected and why_.
 
-**3. Full chain of custody**
+**2. Full chain of custody**
 
 Every citation in the final output includes the complete provenance chain:
 
@@ -76,6 +72,10 @@ Report: "trailing P/E of 18.9x"
 ```
 
 This is not metadata — it's grep-verified evidence at every link. The chain terminates at raw API responses (yfinance, FRED, SEC filings) — that is the trust boundary. Firn verifies that the report faithfully represents what the data sources actually returned, not whether the data sources themselves are correct. Every layer above the raw data is auditable; the raw data is the ground truth.
+
+**3. Deterministic verdicts, not LLM opinions**
+
+The audit agent collects evidence. A separate program (`verdict.py`) assigns trust levels using deterministic rule-based logic — no LLM involved in the verdict decision. This means the verdict layer itself cannot hallucinate: given the same collected evidence, the same verdicts are produced every time. The LLM's role is strictly limited to _finding_ evidence; _judging_ it is done by code.
 
 **4. Purpose-built search for financial data**
 
