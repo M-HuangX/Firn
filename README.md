@@ -28,11 +28,13 @@ You can't assign a human to audit every AI output — it's too expensive and def
 
 A better approach: use an **independent audit agent** to verify the report after the fact. But this just moves the problem — the audit agent is itself an LLM, and it can fabricate evidence just as easily. Saying "I checked and it's correct" means nothing if the checking itself is unverifiable.
 
-Firn solves this with **programmatic enforcement**: the audit agent searches for evidence, but every piece of evidence it attempts to record is **machine-verified against its actual search history** before being accepted. The agent cannot assert "I found this" — the system checks whether it actually searched for it, whether it quoted the report verbatim (not a paraphrase), and whether the specialist actually wrote what the agent claims. Every acceptance and rejection is logged — a compliance officer can review not just what passed, but what failed and why.
+Firn solves this with **programmatic enforcement**: the audit agent searches for evidence, but every piece of evidence it attempts to record is **machine-verified against its actual search history** before being accepted. The agent cannot assert "I found this" — the system checks whether it actually searched for it, whether it quoted the report verbatim (not a paraphrase), and whether the source document actually contains what the agent claims. Every acceptance and rejection is logged — a compliance officer can review not just what passed, but what failed and why.
 
 ---
 
 ## How Firn Audits
+
+Firn is a multi-agent system: 4 **specialist agents** collect market data in parallel (fundamentals, technicals, valuation, macro), a **core agent** synthesizes them into a research report, and then an independent **audit pipeline** verifies every factual claim in that report.
 
 The audit doesn't ask "is this report good?" — it asks, for each specific claim: **"where exactly did this number come from, and does the source actually say that?"**
 
