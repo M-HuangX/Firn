@@ -38,7 +38,7 @@ Firn is a multi-agent system: 4 **specialist agents** collect market data in par
 
 The audit doesn't ask "is this report good?" — it asks, for each specific claim: **"where exactly did this number come from, and does the source actually say that?"**
 
-An LLM audit agent searches for evidence. But the agent is **programmatically constrained** — it cannot record any evidence without the system independently verifying that evidence is real. The LLM finds; code verifies; deterministic logic judges.
+An LLM audit agent searches for evidence, but it cannot record anything without the system first confirming the evidence is real. Three roles, strictly separated: the **LLM searches**, **code enforces**, **deterministic logic judges**.
 
 <p align="center">
   <img src="docs/images/audit-overview.png" alt="Audit Overview — from report claim to raw data source" width="100%"/>
