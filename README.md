@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <a href="#the-problem">The Problem</a> · <a href="#how-firn-audits">How Firn Audits</a> · <a href="#the-audit-pipeline">The Pipeline</a> · <a href="#system-architecture">Architecture</a> · <a href="#web-ui">Web UI</a> · <a href="#quick-start">Quick Start</a>
+  <a href="#the-problem">The Problem</a> · <a href="#how-firn-audits">How Firn Audits</a> · <a href="#the-audit-pipeline">The Pipeline</a> · <a href="#system-architecture">Architecture</a> · <a href="#web-ui">Web UI</a> · <a href="#quick-start">Quick Start</a> · <a href="https://github.com/M-HuangX/audit-fence"><b>audit-fence</b> ↗</a>
 </p>
 
 <p align="center">
@@ -65,6 +65,8 @@ This design also addresses an LLM architecture constraint: when the report, sour
 All rejections are logged to `enforcement_log.jsonl` — a compliance officer can inspect not just what was accepted, but what was _rejected and why_.
 
 Hallucination is inevitable — even humans have it. But through programmatic enforcement, we can dramatically reduce it while providing the auditability and traceability that regulated industries need.
+
+> **This enforcement pattern is framework-agnostic.** We're extracting it into [`audit-fence`](https://github.com/M-HuangX/audit-fence) — a standalone Python library that adds search-verified evidence guards to any LLM agent workflow. If you're building AI systems for regulated industries (finance, legal, medical), audit-fence gives you Firn's core enforcement without adopting the full system. Works with LangGraph, LangChain, OpenAI, Anthropic, or any custom tool-calling framework.
 
 **2. Full chain of custody**
 
@@ -409,6 +411,7 @@ The name **Firn** comes from glaciology — it's the intermediate stage between 
 - [x] FastAPI backend with SSE streaming
 - [x] Web UI — functional version with Analysis Theater, Digest Theater, KB Explorer
 - [x] 1,000+ automated tests
+- [ ] **[audit-fence](https://github.com/M-HuangX/audit-fence)** — Extract enforcement mechanism as standalone, framework-agnostic library
 - [ ] **Firn UI v2** — editorial glacier-aesthetic redesign (in progress, ETA ~1 week)
 - [ ] Full data connection (typed API client, real-time data flow)
 - [ ] Deployment guide (Docker, cloud)
