@@ -18,6 +18,8 @@
   <img src="https://img.shields.io/badge/license-AGPL--3.0-blue" alt="License"/>
 </p>
 
+> **Looking for just the enforcement mechanism?** The core audit pattern — *no search, no evidence* — has been extracted into **[audit-fence](https://github.com/M-HuangX/audit-fence)**, a standalone, zero-dependency Python library. Two decorators, three validation checks. Works with LangGraph, OpenAI, Anthropic, or any tool-calling framework.
+
 ---
 
 ## The Problem
@@ -66,7 +68,7 @@ All rejections are logged to `enforcement_log.jsonl` — a compliance officer ca
 
 Hallucination is inevitable — even humans have it. But through programmatic enforcement, we can dramatically reduce it while providing the auditability and traceability that regulated industries need.
 
-> **This enforcement pattern is framework-agnostic.** We're extracting it into [`audit-fence`](https://github.com/M-HuangX/audit-fence) — a standalone Python library that adds search-verified evidence guards to any LLM agent workflow. If you're building AI systems for regulated industries (finance, legal, medical), audit-fence gives you Firn's core enforcement without adopting the full system. Works with LangGraph, LangChain, OpenAI, Anthropic, or any custom tool-calling framework.
+> **This enforcement pattern is framework-agnostic.** It has been extracted into [`audit-fence`](https://github.com/M-HuangX/audit-fence) as a standalone library — use it to add search-verified evidence guards to any LLM agent workflow, without adopting the full Firn system.
 
 **2. Full chain of custody**
 
