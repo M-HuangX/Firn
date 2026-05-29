@@ -60,7 +60,11 @@ This is the core idea. An audit agent that can freely assert "I checked and it's
 | **Report Text Verification** | "Does the sentence you're pointing to actually exist in the report?" | `claim_in_report` must be a normalized substring of the actual report. Paraphrases → **rejected**. |
 | **Specialist Output Verification** | "Did the specialist actually say this?" | During the specialist fidelity phase, every claim attributed to a specialist is verified against the specialist's actual output file. Fabrications → **rejected**. |
 
+This design also addresses an LLM architecture constraint: when the report, source data, and reasoning traces are all loaded into one context window, information in the middle is most prone to hallucination. By requiring a fresh grep search before each evidence submission, the system ensures the relevant evidence sits at the tail of the context window — where attention is strongest. The enforcement is not just a policy check; it structurally reduces the conditions under which hallucination occurs.
+
 All rejections are logged to `enforcement_log.jsonl` — a compliance officer can inspect not just what was accepted, but what was _rejected and why_.
+
+Hallucination is inevitable — even humans have it. But through programmatic enforcement, we can dramatically reduce it while providing the auditability and traceability that regulated industries need.
 
 **2. Full chain of custody**
 
