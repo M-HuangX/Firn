@@ -18,7 +18,7 @@
   <img src="https://img.shields.io/badge/license-AGPL--3.0-blue" alt="License"/>
 </p>
 
-> **Looking for just the enforcement mechanism?** The core audit pattern — *no search, no evidence* — has been extracted into **[audit-fence](https://github.com/M-HuangX/audit-fence)**, a standalone, zero-dependency Python library. Two decorators, three validation checks. Works with LangGraph, OpenAI, Anthropic, or any tool-calling framework.
+> **Want auditable AI in your own system?** The enforcement pattern behind Firn has been extracted into **[audit-fence](https://github.com/M-HuangX/audit-fence)** — a standalone Python library for automated hallucination detection. Wraps around any agent pipeline, captures production traces, and runs a post-hoc audit agent that programmatically verifies every citation against real source data. Model-agnostic, framework-compatible, MIT licensed. `pip install audit-fence`.
 
 ---
 
@@ -68,7 +68,7 @@ All rejections are logged to `enforcement_log.jsonl` — a compliance officer ca
 
 Hallucination is inevitable — even humans have it. But through programmatic enforcement, we can dramatically reduce it while providing the auditability and traceability that regulated industries need.
 
-> **This enforcement pattern is framework-agnostic.** It has been extracted into [`audit-fence`](https://github.com/M-HuangX/audit-fence) as a standalone library — use it to add search-verified evidence guards to any LLM agent workflow, without adopting the full Firn system.
+> **Use this in your own pipeline.** The enforcement, trace capture, and audit agent have been extracted into [`audit-fence`](https://github.com/M-HuangX/audit-fence) — a standalone library that wraps around any agent system. It captures tool call traces from your production pipeline, then runs a separate audit agent that verifies every claim against the real source data. No framework lock-in, no Firn dependency required.
 
 **2. Full chain of custody**
 
@@ -413,7 +413,7 @@ The name **Firn** comes from glaciology — it's the intermediate stage between 
 - [x] FastAPI backend with SSE streaming
 - [x] Web UI — functional version with Analysis Theater, Digest Theater, KB Explorer
 - [x] 1,000+ automated tests
-- [ ] **[audit-fence](https://github.com/M-HuangX/audit-fence)** — Extract enforcement mechanism as standalone, framework-agnostic library
+- [x] **[audit-fence](https://github.com/M-HuangX/audit-fence)** — Standalone enforcement library (v0.8.0 — trace capture, pre-built audit agent, 294 tests, MIT licensed)
 - [ ] **Firn UI v2** — editorial glacier-aesthetic redesign (in progress, ETA ~1 week)
 - [ ] Full data connection (typed API client, real-time data flow)
 - [ ] Deployment guide (Docker, cloud)
